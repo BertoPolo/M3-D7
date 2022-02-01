@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <script src="https://kit.fontawesome.com/1205482781.js"></script>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <title>Home</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!--SIDEBAR VERTICAL-->
+      <div class="col-2">
+        <nav class="navbar navbar-expand-md navbar-white bg-navbar fixed-left justify-content-between" id="sidebar">
+          <div class="nav-container">
+            <a class="navbar-brand" href="index.html">
+              <img src="logo/Spotify_Logo.png" alt="Spotify_Logo" width="131" height="40" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <ul>
+                  <li>
+                    <a class="nav-item nav-link" href="index.html"><i class="fas fa-home fa-lg"></i>&nbsp; Home
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-item nav-link" href="#"><i class="fas fa-book-open fa-lg"></i>&nbsp; Your
+                      Library</a>
+                  </li>
+                  <li>
+                    <div class="input-group mt-3">
+                      <input type="text" class="form-control mb-2" id="searchField" placeholder="Search"
+                        aria-label="Search" aria-describedby="basic-addon2" onkeyup="handleSearch(event)" />
+                      <div class="input-group-append" style="margin-bottom: 4%">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"
+                          onclick="search()">
+                          GO
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav-btn">
+            <button class="btn signup-btn" type="button">Sign Up</button>
+            <button class="btn login-btn" type="button">Login</button>
+            <a href="#">Cookie Policy</a> |
+            <a href="#"> Privacy</a>
+          </div>
+        </nav>
+      </div>
+      <!--END SIDEBAR VERTICAL-->
+
+      <!--MAIN-->
+      <div class="col-12 col-md-9 offset-md-3 mainPage">
+        <div class="row justify-content-center">
+          <div class="col-9 col-lg-11 mainLinks d-none d-md-flex">
+            <a id="Rock" href="#">ROCK</a>
+            <a id="Pop" href="#">POP</a>
+            <a id="Hip Hop" href="#">HIP HOP</a>
+            <a href="#">NEW RELEASES</a>
+            <a href="#">DISCOVER</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <div id="searchResults" style="display: none">
+              <h2>Search Results</h2>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-10">
+            <div id="results">
+              <h2 class="pl-3 text-white d-inline-block">Loading...</h2>
+              <div class="spinner-border text-primary d-none" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3">
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+                <div class="col text-center">
+                  <img class="img-fluid" src="http://placehold.it/300x300" alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html">Album Title</a>
+                    <br />
+                    <a href="/artist_page.html">Artist Name</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--END MAIN-->
+
+  <!--NAVBAR FLEX-BOTTOM-->
+  <div class="player container-fluid fixed-bottom bg-container pt-1">
+    <div class="row flex-nowrap justify-content-between playBar py-3">
+      <div class="col-auto">
+        <div class="playerArtistInfo d-flex">
+          <img />
+          <div class="d-flex flex-column pl-2">
+            <h6></h6>
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="playerControls w-50 d-flex justify-content-between">
+          <a href="#">
+            <img src="playerbuttons/Shuffle.png" alt="shuffle" />
+          </a>
+          <a href="#">
+            <img src="playerbuttons/Previous.png" alt="previous" />
+          </a>
+          <a href="#">
+            <img src="playerbuttons/Play.png" alt="play" />
+          </a>
+          <a href="#">
+            <img src="playerbuttons/Next.png" alt="next" />
+          </a>
+          <a href="#">
+            <img src="playerbuttons/Repeat.png" alt="repeat" />
+          </a>
+        </div>
+        <div class="progressContainer d-flex align-items-center">
+          <span class="currentTime">00:00</span>
+          <div class="progress w-100">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <audio></audio>
+            </div>
+          </div>
+          <span class="duration">00:00</span>
+        </div>
+      </div>
+      <div class="col-auto mr-3">
+        <div class="playerVolume">
+          <i class="fa fa-volume-up"></i>
+          <input type="range" value="100" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--END NAVBAR BOTTOM-->
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"></script>
+
+  <script>
+    let rockArtists = [
+      "queen",
+      "u2",
+      "the police",
+      "eagles",
+      "the doors",
+      "oasis",
+      "the who",
+      "bon jovi",
+    ];
+
+    let popArtists = [
+      "maroon5",
+      "coldplay",
+      "one republic",
+      "james blunt",
+      "katy perry",
+      "ariana grande",
+    ];
+
+    let hipHopArtists = [
+      "eminem",
+      "snoop dogg",
+      "lil wayne",
+      "drake",
+      "kanye west",
+    ];
+
+    // TRIGGER > EVENT > DATA GATHERING > DOM MANIPULATION
+
+    const albumCard = (song) => `<div class="col text-center">
+                  <img class="img-fluid" src=${song.album.cover_medium} alt="img placeholder" />
+                  <p>
+                    <a href="/album_page.html?albumId=${song.album.id}">Album: ${song.album.title}</a>
+                    <br />
+                    <a href="/artist_page.html?artistId=${song.artist.id}">Artist: ${song.artist.name}</a>
+                  </p>
+                </div>`
+
+    const searchHistory = localStorage.getItem("query")
+
+    let query = searchHistory ? searchHistory : "daft punk"
+
+    const handleSearch = (event) => {
+
+      query = event.target.value
+      window.localStorage.setItem("query", event.target.value)
+
+      console.log(query)
+
+      if (event.key === "Enter" && query.length >= 3) {
+        search()
+      }
+
+    }
+
+    // const handleBtnClick = (event) => {
+    //   const inputValue = document.querySelector("#searchField").value
+
+    //   if (inputValue.length >= 3) {
+    //     console.log("Searched")
+    //     search(inputValue)
+    //   }
+    // }
+
+    const isLoading = (bool) => {
+      const spinner = document.querySelector(".spinner-border")
+
+      if (bool) {
+        spinner.classList.remove("d-none")
+      } else {
+        spinner.classList.add("d-none")
+      }
+    }
+
+    const search = (q = query) => {
+      isLoading(true)
+
+      const row = document.querySelector("#results > .row")
+
+      fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + q)
+        .then(response => {
+          // console.log(response)
+          if (response.ok) {
+            return response.json()
+          }
+        })
+        .then(({ data: artistSongs }) => {
+          // const artistSongs = data
+          // isLoading(false)
+
+          // console.log(artistSongs)
+          // DOM MANIPULATION
+          document.querySelector("#results > h2").innerText = q
+
+          row.innerHTML = ""
+
+          artistSongs.forEach(song => {
+
+            row.innerHTML += albumCard(song)
+          })
+
+          // row.innerHTML = artistSongs.map((song) => `<div class="col text-center">
+          //          <img class="img-fluid" src=${song.album.cover_medium} alt="img placeholder" />
+          //          <p>
+          //            <a href="/album_page.html">Album: ${song.album.title}</a>
+          //            <br />
+          //            <a href="/artist_page.html">Artist: ${song.artist.name}</a>
+          //          </p>
+          //        </div>`).join("")
+        })
+        .catch(err => {
+          // isLoading(false)
+          const h2 = document.querySelector("#results > h2")
+          h2.classList.add("text-danger")
+          h2.innerText = err.message
+
+          row.innerHTML = ""
+
+          console.warn(err);
+        })
+        .finally(() => isLoading(false));
+    }
+
+    const handleChangeVolume = (event) => {
+      localStorage.setItem("prevVolume", event.target.value)
+
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+
+      const volumeRange = document.querySelector(".playerVolume input[type='range']")
+      volumeRange.addEventListener("change", handleChangeVolume)
+
+
+      const storageVolume = localStorage.getItem("prevVolume")
+
+      if (storageVolume) {
+        volumeRange.value = storageVolume
+      }
+
+    })
+
+
+    const getSongsFromArr = (arr, sectionTitle, event) => {
+      document.querySelector("#results > h2").innerText = sectionTitle
+      const row = document.querySelector("#results > .row")
+      row.innerHTML = ""
+      isLoading(true)
+
+      const arrOfPromises = arr.map(artistStr => fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + artistStr).then(resp => resp.json()))
+      // [Promise, Promise, Promise]
+
+      // const reducer = (accumulator, currentValue) => accumulator.concat(...currentValue.slice(0, 4))
+      const reducer = (accumulator, currentValue) => [...accumulator, ...currentValue.slice(0, 4)]
+
+      Promise.all(arrOfPromises)
+        .then(resp => {
+          resp // [{data: [{},{},{},{},]}, {data: [{},{},{},{},]}, {data: [{},{},{},{},]}]
+            .map(({ data }) => data)   // [[{},{},{},{},...], [{},{},{},{},...], [{},{},{},{},...]]
+            .reduce(reducer, []) // [{},{},{},{},{},{},{},{},{},{},{},{}].forEach()
+            .forEach(song => {
+              row.innerHTML += albumCard(song)
+            })
+        })
+        .catch(err => console.err(err))
+        .finally(() => isLoading(false))
+    }
+
+    window.onload = () => {
+
+
+      //200ms
+      // fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem", {
+      //   "method": "GET",
+      //   "headers": {
+      //     "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+      //     "x-rapidapi-key": "44990dcd76msh9e7711544b7bcbbp18140cjsnaed06a042dae"
+      //   }
+      // })
+
+      search()
+      //0
+      console.log("LAST THING")
+
+
+      document.getElementById("Rock").onclick = (event) => getSongsFromArr(rockArtists, "Rock Songs", event)
+      document.getElementById("Pop").onclick = () => getSongsFromArr(popArtists, "Pop Songs")
+      document.getElementById("Hip Hop").onclick = () => getSongsFromArr(hipHopArtists, "Hip Hop Songs")
+
+
+    };
+
+
+    // ----------------------------------------------------------------
+
+    const artists = ["nirvana", "led zeppelin", "queen"]
+
+    // PARALLEL APPROACH
+
+    //F1 ----------
+    //F2 ----
+    //F3 ----------------
+    const loadParallel = () => {
+      let total = artists.length
+      artists.forEach((artist) => {
+
+        fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + artist)
+          .then(resp => resp.json())
+          .then(songs => {
+            total--
+            console.log(total)
+            if (total === 0) { console.log("this is the last one", songs) }
+          })
+      })
+    }
+
+    // SERIAL APPROACH
+    //F1 ----------
+    //F2           ----
+    //F3               ----------------
+
+    const loadSerial = () => {
+      const results = []
+
+      return fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + artists[0])
+        .then(resp => resp.json())
+        .then(({ data }) => {
+          results.push(...data)
+          return fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + artists[1])
+
+        })
+        .then(resp => resp.json())
+        .then(({ data }) => {
+          results.push(...data)
+          return fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + artists[2])
+        })
+        .then(resp => resp.json())
+        .then(({ data }) => {
+          results.push(...data)
+
+          console.log(results)
+          return results
+        })
+    }
+
+
+
+
+
+    console.log("OUTER THING")
+  </script>
+</body>
+
+</html>
