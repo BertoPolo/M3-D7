@@ -11,30 +11,40 @@
     <title>Hello, world!</title>
 </head>
 <body>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Fluid jumbotron</h1>
+            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        </div>
+    </div>
     
-    <label for="filtersInput">Choose filter:</label>
+    <div class="container">
+        <label for="filtersInput" class="mx-3"><strong>Choose filter:</strong></label>
     
-    <select name="filtersInput" id="filtersInput">
-        <option value="email">Email</option>
-        <option value="userName">Username</option>
-    <option value="name">Name</option>
-    
-    </select>
-    <input type="text" name="searchInput" id="searchInput">
-    
-    
-    <div class="container" id="userNameTable">
+        <select class="mx-3" name="filtersInput" id="filtersInput">
+            <option value="email">Email</option>
+            <option value="userName">Username</option>
+        <option value="name">Name</option>
         
-    </div>
-    <button class="btn btn-primary" id="button2">ex 2</button>
+        </select>
 
-    <div class="container" id="exercice2">
+        <input type="text" class="mx-3" name="searchInput" id="searchInput">
+        
+        
+        <div class="container" class="my-5 " id="userNameTable">
+            
+        </div>
+        <button class="btn btn-primary my-3" id="button2">Show names</button>
 
-    </div>
-    <button class="btn btn-primary" id="button3">ex 3</button>
+        <div class="container" id="exercice2">
 
-    <div class="container" id="exercice3">
+        </div>
+        <button class="btn btn-primary my-3" id="button3">Show addresses</button>
 
+        <div class="container" id="exercice3">
+
+        </div>
     </div>
     
 
@@ -42,7 +52,7 @@
 
     <script>
 
-        
+        /* GLOBAL VARIABLES */
         let filterInput = document.getElementById("filtersInput")
         let filterValue = filterInput.value
         filterInput.addEventListener("change",function(){
@@ -53,13 +63,15 @@
 
         let searchQuery = "" 
         let results = []
+
+        /* GLOBAL VARIABLES END */
+
+
+        /* SYNC FUNCTIONS START */
         
         const getSearchInput = function(){
             searchQuery = document.querySelector("#searchInput").value.toLowerCase()
-           /*  console.log(searchQuery) */
-            
-
-           
+           /*  console.log(searchQuery) */           
             const newArr = results.filter(element => {
                 
                return element.toLowerCase().includes(searchQuery)                
@@ -70,6 +82,64 @@
 
         }
         
+  
+
+        const loadOnsearch = function(arr){
+            const userNameContainer = document.getElementById("userNameTable")
+            userNameContainer.innerHTML= ""
+            console.log(searchQuery)
+            console.log(arr)
+            
+            arr.forEach(element => {
+                const newUl = document.createElement("ul")
+                userNameContainer.appendChild(newUl)
+                
+                let newLi = document.createElement("li")   
+                newLi.innerText = element                 
+                newUl.appendChild(newLi)
+                
+                
+            });
+        }
+
+    const clearContainer = function () {
+        const userNameContainer = document.getElementById("userNameTable")
+            
+            userNameContainer.innerHTML= ""
+            console.log("cleared")
+      }
+        
+        const loadUserNames = function(arr){          
+            
+            const userNameContainer = document.getElementById("userNameTable")
+            
+            userNameContainer.innerHTML= ""
+            results = []
+            arr.forEach(element => {
+                const newUl = document.createElement("ul")
+                userNameContainer.appendChild(newUl)
+                let newLi = document.createElement("li")
+
+                if(filterValue === "userName"){                    
+                    results.push(element.username)
+                    newLi.innerText= element.username
+                }else if(filterValue === "name"){                    
+                    results.push(element.name)
+                    newLi.innerText= element.name
+                }else if(filterValue === "email"){                    
+                    results.push(element.email)
+                    newLi.innerText= element.email
+                }
+                    
+                newUl.appendChild(newLi)               
+                
+            });
+            
+        }
+
+        /* SYNC FUNCTIONS END */
+
+        /* ASYNC FUNCTIONS START */
         const displayNames = async function(){
             let response = await fetch('https://jsonplaceholder.typicode.com/users');  
             let data = await response.json()    
@@ -105,67 +175,7 @@
             loadUserNames(data)
         }
 
-        const loadOnsearch = function(arr){
-            const userNameContainer = document.getElementById("userNameTable")
-            userNameContainer.innerHTML= ""
-            console.log(searchQuery)
-            console.log(arr)
-            
-            arr.forEach(element => {
-                const newUl = document.createElement("ul")
-                userNameContainer.appendChild(newUl)
-                
-                let newLi = document.createElement("li")   
-                newLi.innerText = element                 
-                newUl.appendChild(newLi)
-                
-                
-            });
-        }
-
-      const clearContainer = function () {
-        const userNameContainer = document.getElementById("userNameTable")
-            
-            userNameContainer.innerHTML= ""
-            console.log("cleared")
-      }
-        
-        const loadUserNames = function(arr){
-           
-            
-            const userNameContainer = document.getElementById("userNameTable")
-            
-            userNameContainer.innerHTML= ""
-            results = []
-            arr.forEach(element => {
-                const newUl = document.createElement("ul")
-                userNameContainer.appendChild(newUl)
-                let newLi = document.createElement("li")
-
-                if(filterValue === "userName"){
-                    
-                    results.push(element.username)
-                    newLi.innerText= element.username
-
-                }else if(filterValue === "name"){
-                    
-                    results.push(element.name)
-
-                    newLi.innerText= element.name
-
-                }else if(filterValue === "email"){
-                    
-                    results.push(element.email)
-
-                    newLi.innerText= element.email
-                }
-                    
-                newUl.appendChild(newLi)
-                
-                
-            });
-            
-        }
+        /* ASYNC FUNCTIONS END */
 
         /* event listeners */
         const buttonNode = document.getElementById("button2")
