@@ -31,6 +31,11 @@
     <div class="container" id="exercice2">
 
     </div>
+    <button class="btn btn-primary" id="button3">ex 3</button>
+
+    <div class="container" id="exercice3">
+
+    </div>
     
 
 
@@ -78,6 +83,20 @@
             })
             
         }
+        const displayAddress = async function(){
+            let response = await fetch('https://jsonplaceholder.typicode.com/users');  
+            let data = await response.json()    
+            console.log(data)
+            const exercice3 = document.getElementById("exercice3")
+            exercice3.innerHTML = ""
+            data.forEach(element => {
+                let newDiv = document.createElement("div")
+                newDiv.innerText = JSON.stringify(element.address)
+                exercice3.appendChild(newDiv)
+            })
+            
+        }
+       
 
         const fetchOnload = async() =>{
             let response = await fetch('https://jsonplaceholder.typicode.com/users');  
@@ -150,10 +169,12 @@
 
         /* event listeners */
         const buttonNode = document.getElementById("button2")
+        const buttonNode2 = document.getElementById("button3")
         const searchField = document.getElementById("searchInput")
         searchField.addEventListener("keyup",getSearchInput)
         searchField.addEventListener("focus", clearContainer) 
         buttonNode.addEventListener("click", displayNames)  
+        buttonNode2.addEventListener("click", displayAddress)  
 
 
         window.onload = () =>{
