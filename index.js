@@ -134,9 +134,12 @@ const loadUserNames = function (arr) {
 };
 
 const sortByName = function () {  
-   let sorted = document.getElementById("table").classList.contains("unsorted");
+   let table = document.getElementById("table");
+   let unsorted = document.getElementById("table").classList.contains("unsorted");
+   let sortedDesc = document.getElementById("table").classList.contains("sortedDesc");
+   let sortedAsc = document.getElementById("table").classList.contains("sortedAsc");
 
-   if (sorted) {
+   if (unsorted || sortedDesc) {
      results.sort(function (a, b) {
        let nameA = a.name.toUpperCase();
        let nameB = b.name.toUpperCase();
@@ -149,12 +152,30 @@ const sortByName = function () {
        // names must be equal
        return 0;
      });
-
-     console.log(results);
+    
      loadUserNames(results);
-     sorted = document.getElementById("table").classList.remove("unsorted");
-     sorted = document.getElementById("table").classList.add("sortedAsc");
+     
+     table.classList.remove("unsorted");
+     table.classList.remove("sortedDesc");
+     table.classList.add("sortedAsc");
+   } else if (sortedAsc) {
+     results.sort(function (a, b) {
+       let nameA = a.name.toUpperCase();
+       let nameB = b.name.toUpperCase();
+       if (nameA > nameB) {
+         return -1;
+       }
+       if (nameA < nameB) {
+         return 1;
+       }
+       // names must be equal
+       return 0;
+     });
+     
+     loadUserNames(results);
 
+     table.classList.remove("sortedAsc");
+     table.classList.add("sortedDesc");
    }
   
 }
