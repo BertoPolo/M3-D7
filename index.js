@@ -63,46 +63,68 @@ const loadOnsearch = function (arr) {
       newTr.appendChild(newTd3);
   });
 
-  /* highLightSearchedString(); */
+  highlight();
+  
 };
 
-/* const highLightSearchedString = function () {
-   let nameStrings = document.getElementsByClassName("name")
-   let userNameStrings = document.getElementsByClassName("username")
-   let emailStrings = document.getElementsByClassName("email")
- 
+const highlight = () => {
 
-  for (i = 0; i < emailStrings.length; i++) {
-    let str = emailStrings[i].innerText
-    let strLength = emailStrings[i].innerText.length
-    let queryLength = searchQuery.length
-    
-      if (str.includes(searchQuery)) {
-        
-        let beginning = str.slice(0, str.indexOf(searchQuery[0]))
-        let middle = str.slice(
-          str.indexOf(searchQuery[0]),
-          str.indexOf(searchQuery[0]) + queryLength
-        );
-        let end = str.slice(str.indexOf(searchQuery[0])+queryLength);
+  if (filterValue === "userName") {
+    let textNode = document.getElementsByClassName("username");
 
-        
-        emailStrings[i].innerHTML = `${beginning}<mark>${middle}</mark>${end}`;
-        console.log(emailStrings[i]);
-      }
+    for (let i = 0; i < textNode.length; i++) {
+      let textToSearch = document.getElementById("searchInput").value;
+      textToSearch = textToSearch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      let text = textNode[i];
+      let pattern = new RegExp(`${textToSearch}`, "gi");
+
+      text.innerHTML = text.textContent.replace(
+        pattern,
+        (match) => `<mark>${match}</mark>`
+      );
     }
-  } */
+    
+    
+  } else if (filterValue === "name") {
+    let textNode = document.getElementsByClassName("name");
 
+    for (let i = 0; i < textNode.length; i++) {
+      let textToSearch = document.getElementById("searchInput").value;
+      textToSearch = textToSearch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      let text = textNode[i];
+      let pattern = new RegExp(`${textToSearch}`, "gi");
+
+      text.innerHTML = text.textContent.replace(
+        pattern,
+        (match) => `<mark>${match}</mark>`
+      );
+    }
+    
+  } else if (filterValue === "email") {
+    
+  let textNode = document.getElementsByClassName("email");
   
 
-  
+  for (let i = 0; i < textNode.length; i++) {
+    let textToSearch = document.getElementById("searchInput").value;
+    textToSearch = textToSearch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    let text = textNode[i]
+    let pattern = new RegExp(`${textToSearch}`, "gi");
 
-/*  const clearContainer = function () {
-        const userNameContainer = document.getElementById("userNameTable")
-            
-            userNameContainer.innerHTML= ""
-            console.log("cleared")
-      } */
+    text.innerHTML = text.textContent.replace(
+      pattern,
+      (match) => `<mark>${match}</mark>`
+    );
+  
+  }
+  
+  
+  }
+    
+
+
+  
+};
 
 const loadUserNames = function (arr) {
   const tableContainer = document.getElementById("table");
