@@ -63,10 +63,10 @@ const loadOnsearch = function (arr) {
       newTr.appendChild(newTd3);
   });
 
-  highLightSearchedString();
+  /* highLightSearchedString(); */
 };
 
-const highLightSearchedString = function () {
+/* const highLightSearchedString = function () {
    let nameStrings = document.getElementsByClassName("name")
    let userNameStrings = document.getElementsByClassName("username")
    let emailStrings = document.getElementsByClassName("email")
@@ -91,7 +91,7 @@ const highLightSearchedString = function () {
         console.log(emailStrings[i]);
       }
     }
-  }
+  } */
 
   
 
@@ -130,18 +130,34 @@ const loadUserNames = function (arr) {
     newTr.appendChild(newTd1);
     newTr.appendChild(newTd2);
     newTr.appendChild(newTd3);
-
-
-    /* if (filterValue === "userName") {
-      results.push(element.username);      
-    } else if (filterValue === "name") {
-      results.push(element.name);      
-    } else if (filterValue === "email") {
-      results.push(element.email);      
-    } */
-
   });
 };
+
+const sortByName = function () {  
+   let sorted = document.getElementById("table").classList.contains("unsorted");
+
+   if (sorted) {
+     results.sort(function (a, b) {
+       let nameA = a.name.toUpperCase();
+       let nameB = b.name.toUpperCase();
+       if (nameA < nameB) {
+         return -1;
+       }
+       if (nameA > nameB) {
+         return 1;
+       }
+       // names must be equal
+       return 0;
+     });
+
+     console.log(results);
+     loadUserNames(results);
+     sorted = document.getElementById("table").classList.remove("unsorted");
+     sorted = document.getElementById("table").classList.add("sortedAsc");
+
+   }
+  
+}
 
 /* SYNC FUNCTIONS END */
 
@@ -154,7 +170,8 @@ const displayNames = async function () {
   exercice2.innerHTML = "";
   data.forEach((element) => {
     let newDiv = document.createElement("div");
-    newDiv.innerText = element.name;
+    newDiv.innerHTML = `<span>${element.name}</span>   
+    <a href="details.html?ID=${element.id}" class="btn btn-secondary btn-lg active my-1" role="button" aria-pressed="true">Details</a>`;   
     exercice2.appendChild(newDiv);
   });
 };
@@ -164,9 +181,13 @@ const displayAddress = async function () {
   console.log(data);
   const exercice3 = document.getElementById("exercice3");
   exercice3.innerHTML = "";
+  
+  
   data.forEach((element) => {
+    let {address} = element
+    console.log(address);
     let newDiv = document.createElement("div");
-    newDiv.innerText = JSON.stringify(element.address);
+    newDiv.innerText = address.street + ", " + address.suite + ", " + address.city + ", " + address.zipcode 
     exercice3.appendChild(newDiv);
   });
 };
@@ -196,6 +217,9 @@ searchField.addEventListener("keyup", getSearchInput);
 filterInput.addEventListener("change", function () {
   filterValue = filterInput.value;
 });
+
+const sortBtn = document.getElementById("sorting-btn");
+sortBtn.addEventListener("click", sortByName)
 
 /* event listeners end */
 
