@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>M3-D7-HW-Solution</title>
+    <style>
+        input[type="text"][aria-label="First name"] {
+            width: 280px;
+            min-width: 120px;
+            flex: 0 1 auto;
+        }
+
+        .input-group-prepend,
+        .input-group-append {
+            flex: 1 0 auto;
+        }
+
+        a {
+            color: #131313;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 class="d-inline-block mt-4">M3-D7-HW</h1>
+        <div class="row justify-content-between mb-4">
+            <div class="col-auto mb-2">
+                <div class="input-group flex-nowrap">
+                    <div class="input-group-prepend">
+                        <select class="btn btn-sm btn-dark">
+                            <option>Name</option>
+                            <option>Username</option>
+                            <option>Email</option>
+                        </select>
+                    </div>
+                    <input type="text" aria-label="First name" class="form-control">
+                    <div class="input-group-append">
+                        <button class="sortBtn btn btn-info">Sort by Name</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="btn-group">
+                    <button id="get-names" class="btn btn-dark">List of names</button>
+                    <button id="get-addresses" class="btn btn-dark">Addresses</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <ul id="add-on-list" class="list-group">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <table class="table mt-4">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- DYNAMIC TABLE ROWS WILL BE CREATED HERE -->
+        </tbody>
+    </table>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <script>
+        let users = [] // this will be filled at a later time when the fetch resolves (!CANNOT BE READ SYNCHRONOUSLY)
+        let isReversed = false // this boolean determines if the list should be sorted in a reversed order or not
+
+
+        // FUNCTION RESPONSIBLE OF CREATING THE TABLE ROWS WHEN THE FETCH RESOLVES
+        const renderTableRows = (array) => {
+            const tBody = document.querySelector("tbody")
+
+            tBody.innerHTML = ""
+
+            array.forEach(user => {
+                const tr = document.createElement("tr")
+
+                const name = document.createElement("td")
+                const link = document.createElement("a") // wrapping the name in an anchor tag
+                link.href = "./detail.html?id=" + user.id // this link will place a query string dynamically 
+                link.innerText = user.name
+
+                const userName = document.createElement("td")
+                userName.innerText = user.username
+                const email = document.createElement("td")
+                email.innerText = user.email
+
+                // appending the newly created element inside the table body (!THE ORDER OF THEM NEED TO BE EXACLY THIS)
+                name.appendChild(link)
+                tr.appendChild(name)
+                tr.appendChild(userName)
+                tr.appendChild(email)
+                tBody.appendChild(tr)
+            })
+        }
+
+        // This function when called will filter "users" array by using the dropdown value compared with the input value
+        const filterUsers = () => {
+            const select = document.querySelector("select")
+            const input = document.querySelector("input")
+
+            const inputValue = input.value.toLowerCase() // this is what the user types in the input text
+            const filterChoice = select.value.toLowerCase() // this is the dropdown value
+
+            // obj[filterChoice] is selecting dynamically the property of the object,
+            // might be {email: ...} or {name: ...} or {username: ...} depending on what is "filterChoice" at that time
+
+            // then it gets converted to lower case, just to be sure.
+            // and we are going to use a method on it to check if the value includes() a certain string
+
+            // those objects with the matching string in the property are going to be returned in a new array by the filter method
+            const filteredUsers = users.filter(obj => obj[filterChoice].toLowerCase().includes(inputValue))
+
+            // at this point we have a perfect filtered array to use to render the table rows accordingly
+            // and we use a function for that into which we pass the newly create filtered array as arguement
+            renderTableRows(filteredUsers)
+        }
+
+
+        // function called by the "Sort by Name" button
+        const sortUsers = () => {
+
+            //sort function explained in MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort?retiredLocale=it
+
+            // basically comparing two items and changing position of the one that's lower in value 
+            // (characters have an intrinsic value, that's how they get sorted alphabetically)
+            const sortedUsers = users.sort((a, b) => {
+                const name1 = a.name.toLowerCase()
+                const name2 = b.name.toLowerCase()
+
+                if (name1 < name2) {
+                    return -1 // by returning -1 the element gets placed before the next element in the new list
+                }
+            })
+
+            // this changes the global boolean value every time the function runs to the opposite of the previous state
+            isReversed = !isReversed // toggles false if it was true or false if it was true
+
+            // this variable will always contain a different array, the normal sortedUsers or the reversed one
+            const sorted = isReversed ? sortedUsers.reverse() : sortedUsers
+
+            // reusing the same function to render the new table rows
+            renderTableRows(sorted)
+        }
+
+        // function used to display a new list of names before the table
+        // there's a conditional statement that checks if a list was already created, in that case it gets deleted
+
+        // so by clicking once onto the button the list gets created, if it gets pressed again we erase the list
+        // and so on so forth, to create a toggling action
+        const showNames = () => {
+            const list = document.querySelector("#add-on-list")
+            const hasTitle = document.querySelector("#add-on-list h4")
+
+            // checking if the list is already full, in case it is erases the content (for the same button pressed twice)
+            if (list.children.length > 0 && hasTitle.innerText.includes("Names")) {
+                // we are also checking if the pre-existing title is the one of the same category
+                // that's because if we generate addresses first and then click on "List of names" we don't want to just erase the content
+                // we want to fall in the "else" condition in which we erase AND re-generate the content immediately
+
+                // when we click on the same button, though, we want just to toggle on/off the visibility of the list
+
+                list.innerHTML = ""
+
+            } else {
+                list.innerHTML = ""
+
+                const title = document.createElement("h4")
+                title.innerText = "Names: "
+                list.appendChild(title)
+
+                const usersToShow = users.map(user => user.name)
+
+                usersToShow.forEach(userName => {
+                    const li = document.createElement("li")
+                    li.classList.add("list-group-item")
+
+                    li.innerText = userName
+
+                    list.appendChild(li)
+                })
+            }
+        }
+
+        // same as the previous but with slightly different data
+        const showAddresses = () => {
+            const list = document.querySelector("#add-on-list")
+            const hasTitle = document.querySelector("#add-on-list h4")
+
+            if (list.children.length > 0 && hasTitle.innerText.includes("Addresses")) {
+
+                list.innerHTML = ""
+
+            } else {
+                list.innerHTML = ""
+
+                const title = document.createElement("h4")
+                title.innerText = "Addresses: "
+                list.appendChild(title)
+
+                const usersToShow = users.map(address => address.address.street + ", " + address.address.suite + ", " + address.address.city + " " + address.address.zipcode)
+                console.log(usersToShow)
+                usersToShow.forEach(address => {
+                    const li = document.createElement("li")
+                    li.classList.add("list-group-item")
+
+                    li.innerText = address
+
+                    list.appendChild(li)
+                })
+            }
+
+        }
+
+        window.onload = async () => {
+            try {
+                const response = await fetch("https://jsonplaceholder.typicode.com/users")
+                users = await response.json()
+                // console.log(users)
+
+                // Generates the initial table rows after the fetch is complete
+                renderTableRows(users)
+
+
+                // Attaching event listeners to the corresponding elements
+                const input = document.querySelector("input")
+                input.oninput = () => filterUsers()
+
+                const select = document.querySelector("select")
+                select.onchange = () => filterUsers()
+
+                const sortBtn = document.querySelector(".sortBtn")
+                sortBtn.onclick = () => sortUsers()
+
+                const getNamesBtn = document.querySelector("#get-names")
+                getNamesBtn.onclick = () => showNames()
+
+                const getAddressesBtn = document.querySelector("#get-addresses")
+                getAddressesBtn.onclick = () => showAddresses()
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    </script>
+</body>
+
+</html>

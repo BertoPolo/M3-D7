@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>M3-D7-HW-Solution</title>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h5 class="mt-5 mb-0">User Details:</h5>
+        <h1 class="display-4 mb-4"></h1>
+
+        <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item lead px-0">
+            </li>
+            <li class="list-group-item lead px-0">
+            </li>
+            <li class="list-group-item lead px-0">
+            </li>
+        </ul>
+
+        <!-- MAP CONTAINER (usually these APIs return coordinates of points in the ocean ;D ) -->
+        <iframe width="600" height="450" class="w-100" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <script>
+        // Grabs the id number from the URL
+        const userId = new URLSearchParams(window.location.search).get("id")
+
+        window.onload = async () => {
+            try {
+                // Getting the data about a specific user based on the id found in the query string
+                const response = await fetch("https://jsonplaceholder.typicode.com/users/" + userId)
+                const userData = await response.json()
+
+                // Destructuring object properties to use as variable names
+                const { name, username, email, phone, website, address: { city, street, suite, zipcode, geo: { lat, lng } } } = userData
+
+                // Providing coordinates to the map iframe
+                const map = document.querySelector("iframe")
+                map.src = src = "https://maps.google.com/maps?q=" + lat + "," + lng + '&t=&z=15&ie=UTF8&iwloc=&output=embed'
+
+                // Composing the information in the page
+                const h1 = document.querySelector("h1")
+                h1.innerText = name + " (" + username + ")"
+                const mail = document.querySelector("h1 + ul li:first-of-type")
+                mail.innerText = "Email: " + email
+                const tel = document.querySelector("h1 + ul li:nth-of-type(2)")
+                tel.innerText = "Telephone: " + phone
+                const web = document.querySelector("h1 + ul li:nth-of-type(3)")
+                web.innerText = "Website: " + website
+                const addr = document.querySelector("h1 + ul li:nth-of-type(3)")
+                addr.innerText = `Address: ${street}, ${city} ${zipcode} — ${suite}`
+
+            } catch (err) {
+                console.log(err)
+
+                // HANDLING THE ERROR BY DISPLAYING THE MESSAGE IN THE PAGE
+                document.querySelector("h5").remove() // removes first title before appending the message
+                document.querySelector("ul").remove() // removes empty list before appending the message
+
+                const container = document.querySelector(".container-fluid")
+
+                // Changes the tile text and color
+                const h1 = document.querySelector("h1")
+                h1.classList.add("text-danger", "mt-5")
+                h1.innerText = err.message
+
+            }
+        }
+    </script>
+</body>
