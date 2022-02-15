@@ -38,25 +38,38 @@
     </div>
     <button onclick="listCreator()">create!</button>
 
+    <!-- 
+fetch everything
+pass the fetched data to a variable
+grab the text from the input
+filter this variable with .filter
+-->
+
     <script>
-        const listCreator = function(){
+      let list = [];
 
-        }
+      //  const fetcher = async function(){
 
+      const fetcher = async () => {
+        // await console.log("hello");, this can't work, cause this is not a promise
+        try {
+          let response = await fetch(
+            "https://jsonplaceholder.typicode.com/users"
+          );
+          if (response.ok) {
+            let data = await response.json();
+            list = data.map((person) => person.name);
 
-
-        try{
-          let response= await fetch("https://jsonplaceholder.typicode.com/users")
-          if(response.ok){
-              let data = await response.json()
-            console.log(data)
+            console.log(data);
+            console.log(list);
           } else {
-              alert("something went wrong tronc!")
+            alert("something went wrong tronc!");
           }
-      }
-          catch(error){
-              console.log(error)
-          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetcher();
     </script>
 
     <script
